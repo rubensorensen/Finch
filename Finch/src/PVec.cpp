@@ -35,6 +35,26 @@ void PVec::Set(float x_, float y_) {
 	y = y_;
 }
 
+void PVec::Add(PVec vec) {
+	x += vec.x;
+	y += vec.y;
+	z += vec.y;
+}
+
+void PVec::Add(float x_, float y_, float z_) {
+	x += x_;
+	y += y_;
+	z += z_;
+}
+
+PVec PVec::Add(PVec vec1, PVec vec2) {
+	float x_ = vec1.x + vec2.x;
+	float y_ = vec1.y + vec2.y;
+	float z_ = vec1.z + vec2.z;
+	PVec returnVec(x_, y_, z_);
+	return returnVec;
+}
+
 PVec PVec::Copy() {
 	PVec vec(x, y, z);
 	return vec;

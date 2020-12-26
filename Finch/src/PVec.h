@@ -19,6 +19,9 @@ public:
 	void Set(float x_, float y_, float z_);
 	void Set(float x_, float y_);
 	PVec Copy();
+	void Add(PVec vec);
+	void Add(float x_, float y_, float z_);
+	static PVec Add(PVec vec1, PVec vec2);
 	void Mult(float n);
 	void Div(float n);
 	float Dist(PVec vec);
