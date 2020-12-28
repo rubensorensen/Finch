@@ -57,6 +57,9 @@ public:
 	void SetMag(float mag);
 	static PVec(PVec vec, float mag);
 
+	void Limit(flot magLimit);
+	static PVec Limit(PVec vec, float magLimit);
+
 	float* ToArray();
 	static float* ToArray(PVec vec);
 };

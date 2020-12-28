@@ -205,6 +205,20 @@ PVec PVec::SetMag(PVec vec, float mag) {
 	return vec;
 }
 
+void PVec::Limit(float magLimit) {
+	PVec vec(x, y, z);
+	if (vec.MagSq() > magLimit * magLimit) {
+		vec.SetMag(magLimit);
+    }
+}
+
+PVec PVec::Limit(PVec vec, float magLimit) {
+	if (vec.MagSq() > magLimit * magLimit) {
+		vec.SetMag(magLimit);
+		return vec;
+    }
+}
+
 float* PVec::ToArray() {
 	float* array = new float[3];
 	array[0] = x;
