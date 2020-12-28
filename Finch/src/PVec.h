@@ -54,6 +54,9 @@ public:
 	void Normalize();
 	static PVec Normalize(PVec vec);
 
+	void SetMag(float mag);
+	static PVec(PVec vec, float mag);
+
 	float* ToArray();
 	static float* ToArray(PVec vec);
 };

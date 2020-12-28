@@ -190,6 +190,21 @@ PVec PVec::Normalize(PVec vec) {
 	return returnVector;
 }
 
+void PVec::SetMag(float mag) {
+	PVec vec(x, y, z);
+	vec.Normalize();
+	vec.Mult(mag);
+	x = vec.x;
+	y = vec.y;
+	z = vec.z;
+}
+
+PVec PVec::SetMag(PVec vec, float mag) {
+	vec.Normalize();
+	vec.Mult(mag);
+	return vec;
+}
+
 float* PVec::ToArray() {
 	float* array = new float[3];
 	array[0] = x;
