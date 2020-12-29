@@ -10,6 +10,7 @@ public:
 
 public:
 
+	PVec();
 	PVec(float x_, float y_);
 	PVec(float x_, float y_, float z_);
 
@@ -48,7 +49,7 @@ public:
 	PVec Cross(PVec vec);
 	static PVec Cross(PVec vec1, PVec vec2);
 
-	float AngleBetween(PVec vec2);
+	float AngleBetween(PVec vec);
 	static float AngleBetween(PVec vec1, PVec vec2);
 
 	void Normalize();
