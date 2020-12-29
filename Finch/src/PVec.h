@@ -55,9 +55,9 @@ public:
 	static PVec Normalize(PVec vec);
 
 	void SetMag(float mag);
-	static PVec(PVec vec, float mag);
+	static PVec SetMag(PVec vec, float mag);
 
-	void Limit(flot magLimit);
+	void Limit(float magLimit);
 	static PVec Limit(PVec vec, float magLimit);
 
 	float* ToArray();
