@@ -26,13 +26,16 @@ public:
 	void Set(float x_, float y_, float z_);
 	void Set(float x_, float y_);
 
+	static PVec Random2D();
+	static PVec Random3D();
+
 	void Add(PVec vec);
 	void Add(float x_, float y_, float z_);
 	static PVec Add(PVec vec1, PVec vec2);
 
-	void Subtract(PVec vec);
-	void Subtract(float x_, float y_, float z_);
-	static PVec Subtract(PVec vec1, PVec vec2);
+	void Sub(PVec vec);
+	void Sub(float x_, float y_, float z_);
+	static PVec Sub(PVec vec1, PVec vec2);
 
 	void Mult(float n);
 	static PVec Mult(PVec vec, float n);

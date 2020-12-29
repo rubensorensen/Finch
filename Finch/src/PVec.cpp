@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+#include <stdlib.h>
 #include "PVec.h"
 
 PVec::PVec() { }
@@ -23,7 +25,7 @@ PVec PVec::Copy(PVec vec) {
 }
 
 float PVec::Mag() { 
-	return sqrt(  
+	return std::sqrt(  
 			  this->x * this->x 
 			+ this->y * this->y
 			+ this->z * this->z  );
@@ -60,6 +62,19 @@ void PVec::Set(float x, float y) {
 	this->y = y;
 }
 
+PVec PVec::Random2D() {
+	float x = (float)(rand() % 100);
+	float y = (float)(rand() % 100);
+	return PVec::Normalize(PVec(x, y, 0));
+}
+
+PVec PVec::Random3D() {
+	float x = (float)(rand() % 100);
+	float y = (float)(rand() % 100);
+	float z = (float)(rand() % 100);
+	return PVec::Normalize(PVec(x, y, z));
+}
+
 void PVec::Add(PVec vec) {
 	this->x += vec.x;
 	this->y += vec.y;
@@ -79,19 +94,19 @@ PVec PVec::Add(PVec vec1, PVec vec2) {
 	return PVec(x, y, z);
 }
 
-void PVec::Subtract(PVec vec) {
+void PVec::Sub(PVec vec) {
 	this->x -= vec.x;
 	this->y -= vec.y;
 	this->z -= vec.y;
 }
 
-void PVec::Subtract(float x, float y, float z) {
+void PVec::Sub(float x, float y, float z) {
 	this->x -= x;
 	this->y -= y;
 	this->z -= z;
 }
 
-PVec PVec::Subtract(PVec vec1, PVec vec2) {
+PVec PVec::Sub(PVec vec1, PVec vec2) {
 	float x = vec1.x - vec2.x;
 	float y = vec1.y - vec2.y;
 	float z = vec1.z - vec2.z;
@@ -130,14 +145,14 @@ float PVec::Dist(PVec vec) {
 	float xDist = vec.x - this->x;
 	float yDist = vec.y - this->y;
 	float zDist = vec.z - this->z;
-	return sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
+	return std::sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
 }
 
 float PVec::Dist(PVec vec1, PVec vec2) {
 	float xDist = vec2.x - vec1.x;
 	float yDist = vec2.y - vec1.y;
 	float zDist = vec2.z - vec1.z;
-	return sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
+	return std::sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
 }
 
 float PVec::Dot(PVec vec) {
