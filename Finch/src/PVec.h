@@ -10,6 +10,7 @@ public:
 
 public:
 
+	PVec();
 	PVec(float x_, float y_);
 	PVec(float x_, float y_, float z_);
 
@@ -48,16 +49,16 @@ public:
 	PVec Cross(PVec vec);
 	static PVec Cross(PVec vec1, PVec vec2);
 
-	float AngleBetween(PVec vec2);
+	float AngleBetween(PVec vec);
 	static float AngleBetween(PVec vec1, PVec vec2);
 
 	void Normalize();
 	static PVec Normalize(PVec vec);
 
 	void SetMag(float mag);
-	static PVec(PVec vec, float mag);
+	static PVec SetMag(PVec vec, float mag);
 
-	void Limit(flot magLimit);
+	void Limit(float magLimit);
 	static PVec Limit(PVec vec, float magLimit);
 
 	float* ToArray();
