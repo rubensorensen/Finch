@@ -11,30 +11,30 @@ public:
 public:
 
 	PVec();
-	PVec(float x_, float y_);
-	PVec(float x_, float y_, float z_);
+	PVec(float x, float y);
+	PVec(float x, float y, float z);
 
-	PVec Copy();
+	PVec Copy() const;
 	static PVec Copy(PVec vec);
 
-	float Mag();
-	float MagSq();
+	float Mag() const;
+	float MagSq() const;
 
-	void PrintVals();
+	void PrintVals() const;
 	static void PrintVals(PVec vec);
 
-	void Set(float x_, float y_, float z_);
-	void Set(float x_, float y_);
+	void Set(float x, float y, float z);
+	void Set(float x, float y);
 
 	static PVec Random2D();
 	static PVec Random3D();
 
 	void Add(PVec vec);
-	void Add(float x_, float y_, float z_);
+	void Add(float x, float y, float z);
 	static PVec Add(PVec vec1, PVec vec2);
 
 	void Sub(PVec vec);
-	void Sub(float x_, float y_, float z_);
+	void Sub(float x, float y, float z);
 	static PVec Sub(PVec vec1, PVec vec2);
 
 	void Mult(float n);
@@ -43,16 +43,16 @@ public:
 	void Div(float n);
 	static PVec Div(PVec vec, float n);
 
-	float Dist(PVec vec);
+	float Dist(PVec vec) const;
 	static float Dist(PVec vec1, PVec vec2);
 
-	float Dot(PVec vec);
+	float Dot(PVec vec) const;
 	static float Dot(PVec vec1, PVec vec2);
 
-	PVec Cross(PVec vec);
+	PVec Cross(PVec vec) const;
 	static PVec Cross(PVec vec1, PVec vec2);
 
-	float AngleBetween(PVec vec);
+	float AngleBetween(PVec vec) const;
 	static float AngleBetween(PVec vec1, PVec vec2);
 
 	void Normalize();
@@ -64,6 +64,6 @@ public:
 	void Limit(float magLimit);
 	static PVec Limit(PVec vec, float magLimit);
 
-	float* ToArray();
+	float* ToArray() const;
 	static float* ToArray(PVec vec);
 };
