@@ -169,13 +169,13 @@ PVec PVec::Cross(PVec vec1, PVec vec2) {
 }
 
 float PVec::AngleBetween(PVec vec) {
-	float num = PVec::Dot(*this, vec);
+	float num = Dot(*this, vec);
 	float den = this->Mag() * vec.Mag();
 	return std::acos(num / den);
 }
 
 float PVec::AngleBetween(PVec vec1, PVec vec2) {
-	float num = PVec::Dot(vec1, vec2);
+	float num = Dot(vec1, vec2);
 	float den = vec1.Mag() * vec2.Mag();
 	return std::acos(num / den);
 }
