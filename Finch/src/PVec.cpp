@@ -23,10 +23,11 @@ PVec PVec::Copy(PVec vec) {
 }
 
 float PVec::Mag() { 
-	return sqrt(  this->x * this->x 
-				+ this->y * this->y
-				+ this->z * this->z  );
-		}
+	return sqrt(  
+			  this->x * this->x 
+			+ this->y * this->y
+			+ this->z * this->z  );
+}
 
 float PVec::MagSq() { 
 	return	  this->x * this->x 
