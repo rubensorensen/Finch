@@ -1,8 +1,5 @@
 #define _USE_MATH_DEFINES
 
-#include <iostream>
-#include <cmath>
-#include <cstdlib>
 #include "PVec.h"
 
 PVec::PVec() = default;

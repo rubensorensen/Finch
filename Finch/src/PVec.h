@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+
 class PVec {
 
 public:

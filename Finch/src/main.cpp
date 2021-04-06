@@ -1,5 +1,3 @@
-#include <iostream>
-#include <vector>
 #include "PVec.h"
 #include "Window.h"
 
