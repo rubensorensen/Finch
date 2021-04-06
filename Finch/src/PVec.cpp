@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
@@ -25,30 +27,19 @@ PVec PVec::Copy(const PVec vec) {
 }
 
 float PVec::Mag() const { 
-	return std::sqrt(  
-			  this->x * this->x 
-			+ this->y * this->y
-			+ this->z * this->z  );
+	return std::sqrt(this->x * this->x + this->y * this->y + this->z * this->z  );
 }
 
 float PVec::MagSq() const { 
-	return	  this->x * this->x 
-			+ this->y * this->y 
-			+ this->z * this->z;
+	return this->x * this->x + this->y * this->y + this->z * this->z;
 }
 
 void PVec::PrintVals() const {
-	std::cout	<< "[" << this->x 
-				<< ", " << this->y 
-				<< ", " << this->z 
-				<< "]" << std::endl;
+	std::cout << "[" << this->x << ", " << this->y << ", " << this->z << "]" << std::endl;
 }
 
 void PVec::PrintVals(const PVec vec) {
-	std::cout	<< "[" << vec.x 
-				<< ", " << vec.y 
-				<< ", " << vec.z 
-				<< "]" << std::endl;
+	std::cout << "[" << vec.x << ", " << vec.y << ", " << vec.z << "]" << std::endl;
 }
 
 void PVec::Set(const float x, const float y, const float z) {
@@ -63,17 +54,24 @@ void PVec::Set(const float x, const float y) {
 }
 
 PVec PVec::Random2D() {
-	const auto x = static_cast<float>(rand() % 100);
-	const auto y = static_cast<float>(rand() % 100);
+	const float x = static_cast<float>(rand() % 100);
+	const float y = static_cast<float>(rand() % 100);
 	return PVec::Normalize(PVec(x, y, 0));
 }
 
 PVec PVec::Random3D() {
-	const auto x = static_cast<float>(rand() % 100);
-	const auto y = static_cast<float>(rand() % 100);
-	const auto z = static_cast<float>(rand() % 100);
+	const float x = static_cast<float>(rand() % 100);
+	const float y = static_cast<float>(rand() % 100);
+	const float z = static_cast<float>(rand() % 100);
 	return PVec::Normalize(PVec(x, y, z));
 }
+
+PVec PVec::FromAngle(float angle) {
+	const float x = std::cos(angle);
+	const float y = std::sin(angle);
+	return { x, y };
+}
+
 
 void PVec::Add(const PVec vec) {
 	this->x += vec.x;
@@ -228,6 +226,14 @@ PVec PVec::Limit(PVec vec, const float magLimit) {
 		return SetMag(vec, magLimit);
     }
 	return vec;
+}
+
+float PVec::ToDegrees(const float radians) {
+	return radians * (180 / static_cast<float>(M_PI));
+}
+
+float PVec::ToRadians(const float degrees) {
+	return degrees * (static_cast<float>(M_PI) / 180);
 }
 
 float* PVec::ToArray() const {

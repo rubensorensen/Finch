@@ -28,6 +28,7 @@ public:
 
 	static PVec Random2D();
 	static PVec Random3D();
+	static PVec FromAngle(float angle);
 
 	void Add(PVec vec);
 	void Add(float x, float y, float z);
@@ -63,6 +64,9 @@ public:
 
 	void Limit(float magLimit);
 	static PVec Limit(PVec vec, float magLimit);
+
+	static float ToDegrees(float radians);
+	static float ToRadians(float degrees);
 
 	float* ToArray() const;
 	static float* ToArray(PVec vec);
