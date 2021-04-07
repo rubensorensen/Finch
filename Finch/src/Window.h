@@ -65,8 +65,8 @@ public:
 	void UpdateConsole();
 
 	bool IsRunning();
-	uint8_t ScreenWidth();
-	uint8_t ScreenHeight();
+	uint16_t ScreenWidth();
+	uint16_t ScreenHeight();
 	uint8_t FontWidth();
 	uint8_t FontHeight();
 

@@ -25,12 +25,12 @@ bool Console::IsRunning()
 	return m_AppIsRunning;
 }
 
-uint8_t Console::ScreenWidth()
+uint16_t Console::ScreenWidth()
 {
 	return m_ScreenWidth;
 }
 
-uint8_t Console::ScreenHeight()
+uint16_t Console::ScreenHeight()
 {
 	return m_ScreenHeight;
 }
