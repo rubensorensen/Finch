@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Console::Console(const wchar_t* title, const uint16_t width, uint16_t height, uint8_t fWidth, uint8_t fHeight, short backGroundColor)
+Console::Console(const wchar_t* title, const uint16_t width, const uint16_t height, const uint8_t fWidth, const uint8_t fHeight, const short backGroundColor)
 {
 	//	Set title of window
 	SetConsoleTitle(title);

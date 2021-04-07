@@ -13,6 +13,13 @@ class Console
 
 public:
 
+	enum  PIXEL {
+		SOLID = 0x2588,
+		THREEQUARTERS = 0x2593,
+		HALF = 0x2592,
+		QUARTER = 0x2591
+	};
+
 	enum  COLOR {
 		FG_BLACK		=	0x0000,
 		FG_DARK_BLUE	=	0x0001,
@@ -49,14 +56,7 @@ public:
 		BG_WHITE		=	0x00F0
 	};
 
-	enum  PIXEL {
-		SOLID			=	0x2588,
-		THREEQUARTERS	=	0x2593,
-		HALF			=	0x2592,
-		QUARTER			=	0x2591
-	};
-
-	Console(const wchar_t* title = L"Finch Framework", const uint16_t width = 160u, uint16_t height = 100u, uint8_t fWidth = 8u, uint8_t fHeight = 8u, short backgroundColor = COLOR::FG_WHITE);
+	Console(const wchar_t* title = L"Finch Framework", const uint16_t width = 160u, const uint16_t height = 100u, const uint8_t fWidth = 8u, const uint8_t fHeight = 8u, const short backgroundColor = COLOR::FG_WHITE);
 	~Console();
 
 	void ClearConsole(short col);
