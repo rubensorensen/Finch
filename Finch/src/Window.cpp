@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Console::Console(const wchar_t* title, const uint8_t width, uint8_t height, uint8_t fWidth, uint8_t fHeight, short backGroundColor)
+Console::Console(const wchar_t* title, const uint16_t width, uint16_t height, uint8_t fWidth, uint8_t fHeight, short backGroundColor)
 {
 	//	Set title of window
 	SetConsoleTitle(title);
@@ -9,6 +9,15 @@ Console::Console(const wchar_t* title, const uint8_t width, uint8_t height, uint
 	m_FSizeW = fWidth;
 	m_FSizeH = fHeight;
 	m_BackGround = backGroundColor;
+}
+
+Console::~Console()
+{
+	delete m_ConsoleBuffer;
+	delete[] m_EventBuffer;
+
+	m_cfi.dwFontSize.Y = m_FSizeW * 2;
+	SetCurrentConsoleFontEx(m_wHnd, false, &m_cfi);
 }
 
 bool Console::IsRunning()
@@ -56,21 +65,22 @@ void Console::InitializeConsole()
 	SetConsoleWindowInfo(m_wHnd, TRUE, &m_WindowSize);
 
 	// Create COORD to hold buffer size
-	m_BufferSize = { m_ScreenWidth, m_ScreenHeight };
+	m_BufferSize = { static_cast<short>(m_ScreenWidth), static_cast<short>(m_ScreenHeight) };
 
 	//	Change internal buffer size
 	SetConsoleScreenBufferSize(m_wHnd, m_BufferSize);
 
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.X = m_FSizeW;
-	cfi.dwFontSize.Y = m_FSizeH;
-	cfi.FontFamily = FF_DONTCARE;
-	cfi.FontWeight = FW_NORMAL;
+	SetConsoleMode(m_rHnd, ENABLE_EXTENDED_FLAGS | ENABLE_MOUSE_INPUT);
 
-	wcscpy_s(cfi.FaceName, L"Consolas");
-	SetCurrentConsoleFontEx(m_wHnd, false, &cfi);
+	m_cfi.cbSize = sizeof(m_cfi);
+	m_cfi.nFont = 0;
+	m_cfi.dwFontSize.X = m_FSizeW;
+	m_cfi.dwFontSize.Y = m_FSizeH;
+	m_cfi.FontFamily = FF_DONTCARE;
+	m_cfi.FontWeight = FW_NORMAL;
+
+	wcscpy_s(m_cfi.FaceName, L"Consolas");
+	SetCurrentConsoleFontEx(m_wHnd, false, &m_cfi);
 
 	//	Set physical window size
 	m_WindowSize = { 0, 0, m_ScreenWidth - 1, m_ScreenHeight - 1 };
@@ -85,7 +95,7 @@ void Console::InitializeConsole()
 void Console::UpdateConsole()
 {
 	//	Set up positions
-	COORD charBufSize { m_ScreenWidth, m_ScreenHeight };
+	COORD charBufSize { static_cast<short>(m_ScreenWidth), static_cast<short>(m_ScreenHeight) };
 	COORD characterPos = { 0, 0 };
 	SMALL_RECT writeArea{ 0, 0, m_ScreenWidth - 1, m_ScreenHeight - 1 };
 
@@ -108,7 +118,7 @@ void Console::GetConsoleEvents()
 	if (numEvents != 0)
 	{
 		//	Creeate a buffer to store events
-		INPUT_RECORD* m_EventBuffer{ new INPUT_RECORD[numEvents] };
+		m_EventBuffer = new INPUT_RECORD[numEvents];
 
 		//	Read console events into the buffer, save how many events have been read into numEventsRead
 		ReadConsoleInput(m_rHnd, m_EventBuffer, numEvents, &numEventsRead);
@@ -123,8 +133,6 @@ void Console::GetConsoleEvents()
 				if (m_EventBuffer[i].Event.KeyEvent.wVirtualKeyCode == VK_ESCAPE)
 				{
 					system("CLS");
-					delete m_ConsoleBuffer;
-					delete[] m_EventBuffer;
 					m_AppIsRunning = false;
 				}
 				else if (m_EventBuffer[i].Event.KeyEvent.wVirtualKeyCode == VK_SPACE)
@@ -156,8 +164,20 @@ void Console::GetConsoleEvents()
 					DrawCircle(rand() % m_ScreenWidth, rand() % m_ScreenHeight, rand() % (m_ScreenHeight < m_ScreenWidth ? m_ScreenHeight / 2 : m_ScreenWidth / 2), PIXEL::SOLID, rand() % 256);
 				}
 			}
+
+			else if (m_EventBuffer[i].EventType == MOUSE_EVENT)
+			{
+				int xPos = m_EventBuffer[i].Event.MouseEvent.dwMousePosition.X;
+				int yPos = m_EventBuffer[i].Event.MouseEvent.dwMousePosition.Y;
+				int offset = xPos + yPos * m_ScreenWidth;
+
+				// Left click?
+				if (m_EventBuffer[i].Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)
+				{
+					Draw(xPos, yPos, PIXEL::SOLID, COLOR::FG_CYAN);
+				}
+			}
 		}
-		delete[] m_EventBuffer;
 	}
 }
 

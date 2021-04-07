@@ -56,9 +56,8 @@ public:
 		QUARTER			=	0x2591
 	};
 
-
-
-	Console(const wchar_t* title = L"Finch Framework", const uint8_t width = 160u, uint8_t height = 100u, uint8_t fWidth = 8u, uint8_t fHeight = 8u, short backgroundColor = COLOR::FG_WHITE);
+	Console(const wchar_t* title = L"Finch Framework", const uint16_t width = 160u, uint16_t height = 100u, uint8_t fWidth = 8u, uint8_t fHeight = 8u, short backgroundColor = COLOR::FG_WHITE);
+	~Console();
 
 	void ClearConsole(short col);
 	void InitializeConsole();
@@ -85,8 +84,8 @@ public:
 private:
 
 	//wchar_t* m_Title;
-	uint8_t m_ScreenWidth{ 160u };
-	uint8_t m_ScreenHeight{ 100u };
+	uint16_t m_ScreenWidth{ 160u };
+	uint16_t m_ScreenHeight{ 100u };
 	uint8_t m_FSizeW{ 8u };
 	uint8_t m_FSizeH{ 8u };
 
@@ -101,6 +100,9 @@ private:
 
 	SMALL_RECT m_WindowSize;
 	COORD m_BufferSize;
+
+	INPUT_RECORD* m_EventBuffer = nullptr;
+	CONSOLE_FONT_INFOEX m_cfi;
 
 	bool m_AppIsRunning{ true };
 };
