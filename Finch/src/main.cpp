@@ -1,9 +1,12 @@
-#include "PVec.h"
+#include "Vec2D.h"
 #include "Window.h"
+#include <iostream>
 
 int main() {
-	Console console(L"Finch Framework", 160, 100, 8, 8, Console::COLOR::FG_DARK_GRAY);
+	
+	Console console;
 	console.InitializeConsole();
+
 	while (console.IsRunning())
 	{
 		console.UpdateConsole();
